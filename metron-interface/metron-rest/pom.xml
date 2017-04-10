@@ -105,10 +105,7 @@
                     <groupId>com.fasterxml.jackson.core</groupId>
                     <artifactId>jackson-databind</artifactId>
                 </exclusion>
-                <exclusion>
-                  <groupId>org.reflections</groupId>
-                  <artifactId>reflections</artifactId>
-                </exclusion>
+
             </exclusions>
         </dependency>
         <dependency>
