@@ -42,14 +42,11 @@ public class Configuration extends Configurations {
     public void update() throws Exception {
 
         if( null != curatorFramework ) {
-
+            //read global config
             ConfigurationsUtils.updateConfigsFromZookeeper(this, this.curatorFramework);
-
         } else {
-
+            //read global config
             updateGlobalConfig(ConfigurationsUtils.readGlobalConfigFromFile(configFileRoot.toAbsolutePath().toString()));
-
         }
-
     }
 }

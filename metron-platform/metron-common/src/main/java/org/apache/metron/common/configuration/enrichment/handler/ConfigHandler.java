@@ -21,9 +21,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+
+/***
+ *
+ * 对fieldMap的每个流对应的值进行判断，是list还是stellar
+ *
+ */
 public class ConfigHandler {
+
+
   private Map<String, Object> config;
   private Configs type = Configs.LIST;
+
+
   public ConfigHandler(String enrichment, Map<String, Object> obj) {
     config = (Map<String, Object>) obj.get("config");
     if(obj.containsKey("type")) {

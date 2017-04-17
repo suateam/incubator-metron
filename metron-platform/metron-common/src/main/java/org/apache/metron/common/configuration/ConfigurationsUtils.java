@@ -180,6 +180,12 @@ public class ConfigurationsUtils {
     return JSONUtils.INSTANCE.load(new ByteArrayInputStream(readFromZookeeper(PARSER.getZookeeperRoot() + "/" + sensorType, client)), SensorParserConfig.class);
   }
 
+  /*
+    读取信息
+  * get /metron/topology/global
+  * {"es.clustername":"metron","es.ip":"25suateam.com","es.port":"9300","es.date.format":"yyyy.MM.dd.HH","geo.hdfs.file":"/apps/metron/geo/1491576936816/GeoLite2-City.mmdb.gz"}
+  *
+  * */
   public static byte[] readGlobalConfigBytesFromZookeeper(CuratorFramework client) throws Exception {
     return readFromZookeeper(GLOBAL.getZookeeperRoot(), client);
   }

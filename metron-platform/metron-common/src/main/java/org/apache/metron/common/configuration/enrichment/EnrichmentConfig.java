@@ -52,11 +52,12 @@ public class EnrichmentConfig {
   public void setFieldMap(Map<String, Object> fieldMap) {
     this.fieldMap = fieldMap;
     for(Map.Entry<String, Object> kv : fieldMap.entrySet()) {
+      //判断 geo/host 等流对应的value是list还是map
       if(kv.getValue() instanceof List) {
-        enrichmentConfigs.put(kv.getKey(), new ConfigHandler((List<String>)kv.getValue()));
+           enrichmentConfigs.put(kv.getKey(), new ConfigHandler((List<String>)kv.getValue()));
       }
       else {
-        enrichmentConfigs.put(kv.getKey(), new ConfigHandler(kv.getKey(), (Map<String, Object>)kv.getValue()));
+          enrichmentConfigs.put(kv.getKey(), new ConfigHandler(kv.getKey(), (Map<String, Object>)kv.getValue()));
       }
     }
   }

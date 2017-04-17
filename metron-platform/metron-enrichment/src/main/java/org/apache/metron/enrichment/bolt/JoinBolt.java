@@ -102,19 +102,19 @@ public abstract class JoinBolt<V> extends ConfiguredEnrichmentBolt {
     String key = (String) keyGetStrategy.get(tuple);
     String subgroup = (String) subgroupGetStrategy.get(tuple);
     streamId = Joiner.on(":").join("" + streamId, subgroup == null?"":subgroup);
+    //geo:ip_dst_addr   geo:ip_src_addr   host:host 目前配置文件中只有这两个
     V message = (V) messageGetStrategy.get(tuple);
     try {
-      Map<String, V> streamMessageMap = cache.get(key);
+      Map<String, V> streamMessageMap = cache.get(key);//从缓冲中拿出当前处理的消息对应的信息
       if (streamMessageMap.containsKey(streamId)) {
-        LOG.warn(String.format("Received key %s twice for " +
-                "stream %s", key, streamId));
+        LOG.warn(String.format("Received key %s twice for " +   "stream %s", key, streamId));
       }
       streamMessageMap.put(streamId, message);
-      Set<String> streamIds = getStreamIds(message);
-      Set<String> streamMessageKeys = streamMessageMap.keySet();
+      Set<String> streamIds = getStreamIds(message);//信息配置了哪些应该处理的 流：subgroup
+      Set<String> streamMessageKeys = streamMessageMap.keySet();//已经处理了哪些 流：subgroup
       if ( streamMessageKeys.size() == streamIds.size()
         && Sets.symmetricDifference(streamMessageKeys, streamIds)
-               .isEmpty()
+               .isEmpty() //二者进行比较，确定是否可以进行输出
          ) {
         collector.emit( "message"
                       , tuple

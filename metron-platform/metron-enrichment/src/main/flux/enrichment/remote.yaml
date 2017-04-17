@@ -47,6 +47,7 @@ components:
 
     -   id: "geoEnrichmentAdapter"
         className: "org.apache.metron.enrichment.adapters.geo.GeoAdapter"
+
     -   id: "geoEnrichment"
         className: "org.apache.metron.enrichment.configuration.Enrichment"
         constructorArgs:
@@ -517,6 +518,7 @@ streams:
             streamId: "hbaseThreatIntel"
             type: FIELDS
             args: ["key"]
+
     -   name: "threatSplit -> stellarThreatIntel"
         from: "threatIntelSplitBolt"
         to: "stellarThreatIntelBolt"

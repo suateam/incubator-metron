@@ -50,13 +50,20 @@ public class EnrichmentJoinBolt extends JoinBolt<JSONObject> {
       String errorMessage = "Unable to find source type for message: " + message;
       throw new IllegalStateException(errorMessage);
     }
+    //获得增强类型，通过配置文件的fieldMap，geo增强，host增强
     Map<String, Object>  fieldMap = getFieldMap(sourceType);
+    //获得每个增强对应的值，对哪些字段进行增强
     Map<String, ConfigHandler> handlerMap = getFieldToHandlerMap(sourceType);
+
+
     if(fieldMap != null) {
       for (String enrichmentType : fieldMap.keySet()) {
         ConfigHandler handler = handlerMap.get(enrichmentType);
         for(String subgroup : handler.getType().getSubgroups(handler.getConfig())) {
           streamIds.add(Joiner.on(":").join(enrichmentType, subgroup));
+          //geo:ip_dst_addr   geo:ip_src_addr
+          //host:host
+          //前面是流，后面是对那个字段进行增强
         }
       }
     }
